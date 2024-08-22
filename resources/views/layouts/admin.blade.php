@@ -18,8 +18,8 @@
     <div class="main-wrapper d-flex">
         <div class="content">
             <main>
+                @include('admin.partials.header')
                 <div class="main_container">
-                    @include('admin.partials.header')
                     @yield('content')
                 </div>
             </main>
@@ -37,6 +37,7 @@
         height: 100vh;
         width: 100vw;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
     }
@@ -44,8 +45,9 @@
     .main_container{
         background-color: #ecefe1;
         width: 60vw;
-        height: 80vh;
-        border-radius: 0.6rem
+        height: 70vh;
+        border-bottom-left-radius: 0.6rem;
+        border-bottom-right-radius: 0.6rem;
     }
 
 </style>

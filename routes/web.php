@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\JurneyController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -23,7 +24,7 @@ Route::middleware(['auth', 'verified'])
     ->name('admin.')
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('home');
-        // Route::resource('restaurants', RestaurantController::class);
+        Route::resource('jurney', JurneyController::class);
         // Route::resource('dishes', DishController::class);
         // Route::resource('orders', OrderController::class);
     });
