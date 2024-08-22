@@ -12,4 +12,8 @@ class day extends Model
     public function jurney(){
         return $this->belongsTo(Jurney::class);
     }
+
+    public function stages(){
+        return $this->hasMany(stage::class);
+    }
 }
