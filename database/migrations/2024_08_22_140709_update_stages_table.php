@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->foreign('day_id')
                 ->references('id')
-                ->on('day')
+                ->on('days')
                 ->nullOnDelete();
         });
     }

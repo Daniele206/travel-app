@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->foreign('jurney_id')
                 ->references('id')
-                ->on('jurney')
+                ->on('jurneys')
                 ->nullOnDelete();
         });
     }
