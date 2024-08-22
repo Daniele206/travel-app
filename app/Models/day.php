@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class day extends Model
 {
     use HasFactory;
+
+    public function jurney(){
+        return $this->belongsTo(Jurney::class);
+    }
 }
