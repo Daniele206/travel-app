@@ -12,4 +12,5 @@ class stage extends Model
     public function day(){
         return $this->belongsTo(day::class);
     }
+    //day_id to stages
 }
