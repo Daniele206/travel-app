@@ -48,6 +48,7 @@
         height: 70vh;
         border-bottom-left-radius: 0.6rem;
         border-bottom-right-radius: 0.6rem;
+        overflow: auto;
     }
 
 </style>

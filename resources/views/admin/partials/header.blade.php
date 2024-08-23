@@ -1,6 +1,6 @@
 <header>
     <nav class="br_t navbar navbar-expand-lg bg-body-tertiary d-flex justify-content-between align-items-center">
-        <h1 class="title fs-2 ps-3">Travel-App</h1>
+        <a class="title fs-2 ps-3 text-decoration-none" href="{{route('admin.home')}}">Travel-App</a>
         <div class="d-flex align-items-center pe-3">
             <h2 class="name fs-3 pe-3">{{ Auth::user()->name }}</h2>
             <form action="{{ route('logout') }}" method="POST">

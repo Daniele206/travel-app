@@ -16,4 +16,6 @@ class Jurney extends Model
     public function days(){
         return $this->hasMany(day::class);
     }
+
+    protected $fillable=['title','slug','destination','leaving','return'];
 }
