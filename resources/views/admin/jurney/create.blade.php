@@ -31,7 +31,13 @@
             <label for="return" class="form-label fs-3 fw-bold">Ritorno <i class='fs-4 fa-solid fa-star-of-life text-success'></i></label>
             <input value="{{ old('return') }}" name="return" id="return" type="date" class="form-control" aria-describedby="emailHelp">
         </div>
-        <button type="submit" class="btn btn-outline-success">Avanti</button>
+        <div class="w-75 m-auto d-flex justify-content-end align-items-end">
+            <span class="fs-6">Campo obbligatorio: <i class='fa-solid fa-star-of-life text-success'></i></span>
+        </div>
+        <div>
+            <a href="javascript:history.back()" class="btn btn-outline-primary">Back</a>
+            <button type="submit" class="btn btn-outline-success">Avanti</button>
+        </div>
     </form>
 
 @endsection

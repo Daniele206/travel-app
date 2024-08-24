@@ -1,9 +1,3 @@
-@php
-    use Carbon\Carbon;
-
-    $leavingDate = Carbon::createFromFormat('d/m/Y', $jurney['leaving']);
-@endphp
-
 @extends('layouts.admin')
 
 @section('content')
@@ -15,12 +9,12 @@
         <div class=" overflow-auto">
 
             <ul class="list-group">
-                @for ($i = 0; $i < $jurney_length+1; $i++)
+                @foreach ($days as $day)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Giorno: {{ $leavingDate->copy()->addDays($i)->format('d-m-Y') }}
-                        <button class="btn btn-success">Vai al giorno</button>
+                        Giorno: {{ $day->date }}
+                        <a href="{{route('admin.days.show', $day)}}" class="btn btn-success">Vai al giorno</a>
                     </li>
-                @endfor
+                @endforeach
             </ul>
 
         </div>

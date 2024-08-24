@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DayController;
 use App\Http\Controllers\Admin\JurneyController;
+use App\Http\Controllers\Admin\StageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -25,8 +27,8 @@ Route::middleware(['auth', 'verified'])
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('home');
         Route::resource('jurney', JurneyController::class);
-        // Route::resource('dishes', DishController::class);
-        // Route::resource('orders', OrderController::class);
+        Route::resource('days', DayController::class);
+        Route::resource('stages', StageController::class);
     });
 
 Route::middleware('auth')->group(function () {

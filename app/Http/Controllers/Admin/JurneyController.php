@@ -70,8 +70,6 @@ class JurneyController extends Controller
 
         $jurney = Jurney::where('user_id', Auth::id())->first();
 
-        $jurney = Jurney::where('user_id', Auth::id())->first();
-
         $jurney_start = Carbon::parse($jurney['leaving']);
         $jurney_end = Carbon::parse($jurney['return']);
 
