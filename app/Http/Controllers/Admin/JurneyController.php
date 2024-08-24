@@ -183,8 +183,10 @@ class JurneyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Jurney $jurney)
     {
-        //
+        day::where('jurney_id', $jurney->id)->delete();
+        $jurney->delete();
+        return redirect()->route('admin.home');
     }
 }

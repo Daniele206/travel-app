@@ -26,7 +26,11 @@
         </div>
         <div class="d-flex justify-content-between mt-4 mb-3">
             <span class="d-block fw-bold fs-4 me-3">{{$jurney['leaving']}} - {{$jurney['return']}}</span>
-            <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+            <form onsubmit="return confirm('Sei sicuro/a di voler cancellare il tuo viaggio?')" class="d-inline-block" action="{{route('admin.jurney.destroy', $jurney)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger "><i class="fa-solid fa-trash"></i></button>
+            </form>
         </div>
     </div>
 
