@@ -14,10 +14,28 @@
             <a href="{{ route('admin.stages.create') }}" id="addStageBtn" class="btn btn-success fs-1 px-5 py-3 mt-3">Tappa +</a>
         </div>
         @else
-        <ul class="list-group">
+        <ul class="list-group overflow-auto h-100">
             @foreach ($day->stages as $stage)
+                @php
+                // Suddividi la stringa della location con il delimitatore '|'
+                $locationParts = explode('|', $stage->location);
+                // Prendi la prima parte come location
+                $locationOnly = $locationParts[0];
+                @endphp
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ $stage->title }}
+                    <div class="my_w d-flex justify-content-between">
+                        <span>{{ $stage->title }}</span>
+                        <span>{{ $locationOnly }}</span>
+                    </div>
+                    <div>
+                        <a href="{{ route('admin.stages.show', $stage) }}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
+                        <a href="{{ route('admin.stages.edit', $stage) }}" class="btn btn-success"><i class="fa-solid fa-plus"></i> <i class="fa-solid fa-pen"></i></a>
+                        <form onsubmit="return confirm('Sei sicuro/a di voler cancellare la tappa \{{$stage->title}}\?')" class="d-inline-block" action="{{route('admin.stages.destroy', $stage)}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger "><i class="fa-solid fa-trash"></i></button>
+                        </form>
+                    </div>
                 </li>
             @endforeach
             <li class="list-group-item d-flex justify-content-center">
@@ -44,6 +62,10 @@
 
     .my_btn_t:hover{
         text-decoration: none;
+    }
+
+    .my_w{
+        width: 30%;
     }
 </style>
 

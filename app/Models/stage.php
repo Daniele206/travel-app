@@ -12,5 +12,7 @@ class stage extends Model
     public function day(){
         return $this->belongsTo(day::class);
     }
+
+    protected $fillable=['title','slug','location','description','image'];
     //day_id to stages
 }

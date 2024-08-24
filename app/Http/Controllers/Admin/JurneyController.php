@@ -157,8 +157,9 @@ class JurneyController extends Controller
 
         // Rimuove i giorni che non rientrano più nel nuovo intervallo
         foreach ($existingDays as $existingDay) {
-            if ($existingDay < $form_data['leaving'] || $existingDay > $form_data['return']) {
-                day::where('jurney_id', $jurney->id)->where('date', $existingDay)->delete();
+            if ($existingDay->date < $form_data['leaving'] || $existingDay->date > $form_data['return']) {
+                $existingDay->stages()->delete(); // Elimina gli stages associati
+                $existingDay->delete(); // Elimina il giorno
             }
         }
 
@@ -183,8 +184,14 @@ class JurneyController extends Controller
      */
     public function destroy(Jurney $jurney)
     {
-        day::where('jurney_id', $jurney->id)->delete();
+        $days = Day::where('jurney_id', $jurney->id)->get();
+
+        foreach ($days as $day) {
+            $day->stages()->delete();
+            $day->delete();
+        }
         $jurney->delete();
+
         return redirect()->route('admin.home');
     }
 }

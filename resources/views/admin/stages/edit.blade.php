@@ -12,25 +12,41 @@
 </div>
 @endif
 
-<form id="travelForm" class="m-3 w-75 d-flex flex-column align-items-center m-auto" action="{{ route('admin.stages.store') }}" method="post">
+<form id="travelForm" class="m-3 h-100 w-75 d-flex flex-column align-items-center m-auto" action="{{ route('admin.stages.update', $stage) }}" method="post" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
+
     <h3 class="mt-3 fw-bold text-success">Progettazione Viaggio</h3>
-    <div class="mb-1 w-75 mt-3">
-        <label for="title" class="form-label fs-3 fw-bold">Titolo <i class='fs-4 fa-solid fa-star-of-life text-success'></i></label>
-        <input value="{{ old('title') }}" name="title" id="title" type="text" class="form-control" aria-describedby="emailHelp">
-    </div>
-    <div class="mb-1 w-75">
-        <label for="location" class="form-label fs-3 fw-bold">Posizione <i class='fs-4 fa-solid fa-star-of-life text-success'></i></label>
-        <div class="d-flex">
-            <input value="{{ old('location') }}" name="location" id="location" type="text" class="form-control me-2">
-            <button type="button" id="searchButton" class="btn btn-primary">Cerca</button>
+    <div class="d-flex my_h w-75 align-items-start">
+        <div class="mb-1 h-100 w-75 me-2 d-flex justify-content-between flex-column">
+            <div>
+                <label for="title" class="form-label fs-3 fw-bold">Titolo <i class='fs-4 fa-solid fa-star-of-life text-success'></i></label>
+                <input value="{{ old('title', $stage->title) }}" name="title" id="title" type="text" class="form-control" aria-describedby="emailHelp">
+            </div>
+            <div>
+                <label for="image" class="form-label fs-4 fw-bold">Carica/Cambia immagine</label>
+                <input type="file" class="form-control" id="image" name="image" accept="image/*">
+            </div>
         </div>
-        <input value="{{ old('latitude') }}" type="hidden" id="latitude" name="latitude">
-        <input value="{{ old('latitude') }}" type="hidden" id="longitude" name="longitude">
-        <input type="hidden" id="day_id" name="day_id">
-        <div id="map" style="height: 300px; width: 100%; margin: 10px auto;"></div>
+        <div class="mb-1 h-100 w-75 d-flex justify-content-between flex-column">
+            <div>
+                <label for="location" class="form-label fs-3 fw-bold">Posizione <i class='fs-4 fa-solid fa-star-of-life text-success'></i></label>
+                <div class="d-flex">
+                    <input value="{{ old('location', $stage->location) }}" name="location" id="location" type="text" class="form-control me-2">
+                    <button type="button" id="searchButton" class="btn btn-primary">Cerca</button>
+                </div>
+            </div>
+            <input value="{{ old('latitude', $stage->latitude) }}" type="hidden" id="latitude" name="latitude">
+            <input value="{{ old('longitude', $stage->longitude) }}" type="hidden" id="longitude" name="longitude">
+            <input type="hidden" id="day_id" name="day_id">
+            <div id="map" style="height: 120px; width: 100%; margin-top: 10px"></div>
+        </div>
     </div>
-    <div class="w-75 m-auto d-flex justify-content-end align-items-end">
+    <div class="w-75 mt-3 h-25">
+        <label for="image" class="form-label fs-4 fw-bold">Descrizione</label>
+        <textarea class="form-control h-75" aria-label="With textarea" name="description" id="description">{{ old('description', $stage->description) }}</textarea>
+    </div>
+    <div class="w-75 d-flex justify-content-end mt-3 mb-5">
         <span class="fs-6">Campo obbligatorio: <i class='fa-solid fa-star-of-life text-success'></i></span>
     </div>
     <div class="mb-4">
@@ -39,14 +55,19 @@
     </div>
 </form>
 
+<style lang="scss" scoped>
+    .my_h{
+        height: 35%;
+    }
+</style>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Imposta la mappa e il marker iniziale
         var initialLat = document.getElementById('latitude').value;
         var initialLng = document.getElementById('longitude').value;
 
-        // Imposta la mappa e il marker iniziale
-        var initialLatLng = [initialLat || 41.902782, initialLng || 12.496366];
+        var initialLatLng = [initialLat, initialLng]; // Coordinate iniziali
         var map = L.map('map').setView(initialLatLng, 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -118,6 +139,4 @@
         document.getElementById('travelForm').addEventListener('submit', handleFormSubmit);
     });
 </script>
-
-
 @endsection
