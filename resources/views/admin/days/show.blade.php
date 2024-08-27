@@ -27,6 +27,10 @@
                         <span>{{ $stage->title }}</span>
                         <span>{{ $locationOnly }}</span>
                     </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input mouse_h" type="checkbox" role="switch" id="flexSwitchCheck{{ $stage->id }}">
+                        <label class="form-check-label" for="flexSwitchCheck{{ $stage->id }}">Visitata</label>
+                    </div>
                     <div>
                         <a href="{{ route('admin.stages.show', $stage) }}" class="btn btn-primary"><i class="fa-solid fa-eye"></i></a>
                         <a href="{{ route('admin.stages.edit', $stage) }}" class="btn btn-success"><i class="fa-solid fa-plus"></i> <i class="fa-solid fa-pen"></i></a>
@@ -67,16 +71,40 @@
     .my_w{
         width: 30%;
     }
+
+    .mouse_h:hover{
+        cursor: pointer;
+    }
 </style>
 
 <script>
+    document.querySelectorAll('.form-check-input').forEach(function(checkbox) {
+        const stageTitle = checkbox.closest('li').querySelector('.my_w span').textContent;
+
+        // Imposta lo stato iniziale della checkbox
+        if (localStorage.getItem(stageTitle) === '1') {
+            checkbox.checked = true;
+            checkbox.id = 'flexSwitchCheckChecked';
+        } else {
+            checkbox.checked = false;
+            checkbox.id = 'flexSwitchCheckDefault';
+        }
+
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                localStorage.setItem(stageTitle, '1');
+                this.id = 'flexSwitchCheckChecked';
+            } else {
+                localStorage.setItem(stageTitle, '0');
+                this.id = 'flexSwitchCheckDefault';
+            }
+        });
+    });
+
     document.getElementById('addStageBtn').addEventListener('click', function(e) {
         e.preventDefault();
-        console.log("Bottone cliccato!"); // Debug: verifica se il click funziona
         var dayId = {{ $day->id }};
-        console.log("Day ID:", dayId); // Debug: verifica se dayId è corretto
         localStorage.setItem('dayId', dayId);
-        console.log("Variabile salvata nel localStorage"); // Debug: verifica se il salvataggio funziona
         window.location.href = "{{ route('admin.stages.create') }}";
     });
 </script>
