@@ -13,7 +13,7 @@
 
 <style lang="scss" scoped>
 
-    .br_t{
+.br_t{
         border-top-right-radius: 0.6rem;
         border-top-left-radius: 0.6rem;
         width: 60vw;

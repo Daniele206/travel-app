@@ -153,9 +153,8 @@ class JurneyController extends Controller
         $jurney_length = $jurney_end->diffInDays($jurney_start) + 1;
 
         // Recupera le date già presenti nel DB per questo jurney
-        $existingDays = day::where('jurney_id', $jurney->id)->get()->pluck('date')->toArray();
+        $existingDays = day::where('jurney_id', $jurney->id)->get();
 
-        // Rimuove i giorni che non rientrano più nel nuovo intervallo
         foreach ($existingDays as $existingDay) {
             if ($existingDay->date < $form_data['leaving'] || $existingDay->date > $form_data['return']) {
                 $existingDay->stages()->delete(); // Elimina gli stages associati
@@ -163,10 +162,12 @@ class JurneyController extends Controller
             }
         }
 
+        $existingDaysArray = $existingDay->pluck('date')->toArray();
+
         // Aggiunge i nuovi giorni che rientrano nel nuovo intervallo
         for ($i = 0; $i < $jurney_length; $i++) {
             $date = $jurney_start->copy()->addDays($i)->format('Y-m-d');
-            if (!in_array($date, $existingDays)) {
+            if (!in_array($date, $existingDaysArray)) {
                 $newDay = new day();  // Correggi il nome della classe: "Day" invece di "day"
                 $newDay->jurney_id = $jurney->id;
                 $newDay->date = $date;
