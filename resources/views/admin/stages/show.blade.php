@@ -19,12 +19,18 @@ $lon = $locationParts[2];
             <h2>Posizione: <strong>{{ $locationOnly }}</strong></h2>
         </div>
         <div class="d-flex justify-content-between mx-4">
+            @if ($stage->image)
             <img src="{{asset('storage/'.$stage->image)}}" class=" object-fit-cover" style="height: 250px; width: 48%">
             <div id="map" style="height: 250px; width: 48%"></div>
+            @else
+            <div id="map" style="height: 300px; width: 100%"></div>
+            @endif
         </div>
+        @if ($stage->description)
         <h2 class="ms-4 mt-3">Descrizione:</h2>
         <p class="mx-4 fs-5">{{ $stage->description }}</p>
-        <a href="javascript:history.back()" class="btn btn-outline-primary ms-4 mb-2">Back</a>
+        @endif
+        <a href="javascript:history.back()" class="btn btn-outline-primary ms-4 my-2">Back</a>
     </div>
 </div>
 
