@@ -62,3 +62,8 @@ Scrivere un README da aggiungere alla repository per documentare requisiti, inst
 9. Concentrarsi sul layout e rifinirlo.
 10. Test totale prima di mettere il sito online.
 11. Hostare il sito con, nel mio caso, infinityfree, (ho scelto questa piattaforma perché dopo averne provate varie gratuite mi sembrava la migliora sia per semplicitá, che per manutenibilitá, upgreidabbilitá e anche perché implementava come database giá di base mysql).
+
+
+**link per il sito:**
+
+http://travel-app.000.pe/
